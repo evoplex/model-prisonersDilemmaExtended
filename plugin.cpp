@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018 - Marcos Cardinot <marcos@cardinot.net>
+ * Copyright (c) 2023 - Marcos Cardinot <marcos@cardinot.net>
  *
  * This source code is licensed under the MIT license found in
  * the LICENSE file in the root directory of this source tree.
@@ -11,8 +11,16 @@ namespace evoplex {
 
 bool PDGame::init()
 {
-    m_temptation = attr("temptation", -1.0).toDouble();
-    return m_temptation >=1.0 && m_temptation <= 2.0;
+    const auto read = [this](auto& var, const auto& strategy)
+    {
+        var = attr(strategy, -999999.).toDouble();
+        if (var < -1000. || var > 1000.) {
+            qDebug() << "Invalid payoff! " << strategy << var;
+            return false;
+        }
+        return true;
+    };
+    return read(m_cc, "cc") && read(m_cd, "cd") && read(m_dc, "dc") && read(m_dd, "dd");
 }
 
 bool PDGame::algorithmStep()
@@ -62,10 +70,10 @@ bool PDGame::algorithmStep()
 double PDGame::playGame(const int sX, const int sY) const
 {
     switch (binarize(sX) * 2 + binarize(sY)) {
-    case 0: return 1.0;             // CC : Reward for mutual cooperation
-    case 1: return 0.0;             // CD : Sucker's payoff
-    case 2: return m_temptation;    // DC : Temptation to defect
-    case 3: return 0.0;             // DD : Punishment for mutual defection
+    case 0: return m_cc;    // CC : Reward for mutual cooperation
+    case 1: return m_cd;    // CD : Sucker's payoff
+    case 2: return m_dc;    // DC : Temptation to defect
+    case 3: return m_dd;    // DD : Punishment for mutual defection
     default: qFatal("Error! strategy should be 0 or 1!");
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018 - Marcos Cardinot <marcos@cardinot.net>
+ * Copyright (c) 2023 - Marcos Cardinot <marcos@cardinot.net>
  *
  * This source code is licensed under the MIT license found in
  * the LICENSE file in the root directory of this source tree.
@@ -20,7 +20,10 @@ public:
 private:
     enum NodeAttr { STRATEGY, SCORE };
 
-    double m_temptation;
+    double m_cc;
+    double m_cd;
+    double m_dc;
+    double m_dd;
 
     double playGame(const int sX, const int sY) const;
     int binarize(const int strategy) const;

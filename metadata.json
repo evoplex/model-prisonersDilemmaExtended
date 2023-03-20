@@ -1,16 +1,19 @@
 {
   "type": "model",
-  "uid": "prisonersDilemma",
+  "uid": "prisonersDilemmaExtended",
   "version": 1,
-  "title": "Prisoner's Dilemma Game",
+  "title": "Extended Prisoner's Dilemma Game",
   "author": "Marcos Cardinot",
-  "description": "It implements the experiment proposed by Nowak, M. A., & May, R. M. (1992). Evolutionary games and spatial chaos. Nature, 359(6398), 826. DOI: http://dx.doi.org/10.1038/359826a0",
+  "description": "It implements a generalized version of the experiment proposed by Nowak, M. A., & May, R. M. (1992). Evolutionary games and spatial chaos. Nature, 359(6398), 826. DOI: http://dx.doi.org/10.1038/359826a0",
   "supportedGraphs": ["squareGrid","edgesFromFile"],
   "pluginAttributesScope": [
-    {"temptation": "double[1,2]"}
+    {"cc": "double[-1000,1000]"},
+    {"cd": "double[-1000,1000]"},
+    {"dc": "double[-1000,1000]"},
+    {"dd": "double[-1000,1000]"}
   ],
   "nodeAttributesScope": [
     {"strategy": "int{0,1,2,3}"},
-    {"score": "double[0,16]"}
+    {"score": "double[-100000,100000]"}
   ]
 }
